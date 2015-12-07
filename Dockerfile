@@ -1,14 +1,6 @@
-#
-# Openresty docker image
-#
-# This docker contains openresty (nginx) compiled from source with useful optional modules installed.
-#
-# http://github.com/tenstartups/openresty-docker
-#
-
 FROM debian:jessie
 
-MAINTAINER Marc Lennox <marc.lennox@gmail.com>
+MAINTAINER Davide Setti <davide.setti@gmail.com>
 
 # Set environment.
 ENV \
@@ -29,7 +21,7 @@ RUN apt-get update && apt-get -y install \
 
 # Compile openresty from source.
 RUN \
-  wget http://openresty.org/download/ngx_openresty-1.7.7.1.tar.gz && \
+  wget http://openresty.org/download/ngx_openresty-1.9.3.2.tar.gz && \
   tar -xzvf ngx_openresty-*.tar.gz && \
   rm -f ngx_openresty-*.tar.gz && \
   cd ngx_openresty-* && \
@@ -47,9 +39,6 @@ WORKDIR /home/openresty
 
 # Add files to the container.
 ADD . /home/openresty
-
-# Expose volumes.
-VOLUME ["/etc/nginx"]
 
 # Set the entrypoint script.
 ENTRYPOINT ["./entrypoint"]
