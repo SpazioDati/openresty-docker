@@ -43,5 +43,8 @@ ADD . /home/openresty
 # Set the entrypoint script.
 ENTRYPOINT ["./entrypoint"]
 
+# Graceful shutdown
+STOPSIGNAL SIGQUIT
+
 # Define the default command.
 CMD ["nginx", "-c", "/etc/nginx/nginx.conf"]
