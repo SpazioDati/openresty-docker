@@ -9,4 +9,4 @@ fi
 
 command="$@"
 
-${command}
+exec ${command}
