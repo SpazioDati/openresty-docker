@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:buster-slim
 
 MAINTAINER Davide Setti <davide.setti@gmail.com>
 
@@ -15,22 +15,21 @@ RUN apt-get update && apt-get -y install \
   libncurses5-dev \
   libpcre3-dev \
   libssl-dev \
-  nano \
-  perl \
-  wget
+  zlib1g-dev \
+  perl
 
 # Compile openresty from source.
 RUN \
-  wget http://openresty.org/download/ngx_openresty-1.9.3.2.tar.gz && \
-  tar -xzvf ngx_openresty-*.tar.gz && \
-  rm -f ngx_openresty-*.tar.gz && \
-  cd ngx_openresty-* && \
-  ./configure --with-pcre-jit --with-ipv6 && \
+  curl -O https://openresty.org/download/openresty-1.19.9.1.tar.gz && \
+  tar -xzvf openresty-*.tar.gz && \
+  rm -f openresty-*.tar.gz && \
+  cd openresty-* && \
+  ./configure --with-pcre-jit && \
   make && \
   make install && \
   make clean && \
   cd .. && \
-  rm -rf ngx_openresty-*&& \
+  rm -rf openresty-* && \
   ln -s /usr/local/openresty/nginx/sbin/nginx /usr/local/bin/nginx && \
   ldconfig
 
